@@ -1,14 +1,14 @@
 export default function Graph({ priceData, handleOptionClick }) {
   return (
     <div className='w-16 flex flex-col items-center'>
-      <div className='h-96 flex flex-col justify-end'>
-        <p className='rotate-270 mb-4 font-bold text-lg'>
+      <div className='h-80 flex flex-col justify-end'>
+        <p className='rotate-270 mb-5 font-bold text-lg'>
           {priceData.totalPrice.toFixed(2)}$
         </p>
         <div
           className='w-8 self-center'
           style={{
-            height: 10 + priceData.totalPrice * 4,
+            height: 10 + priceData.totalPrice * 3,
             backgroundColor: priceData.isLowestPrice
               ? priceData.companyColor
               : '#94a3b8',

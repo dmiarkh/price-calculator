@@ -1,7 +1,7 @@
 export const graphData = [
   {
     name: 'backblaze',
-    logoURL: '../src/images/backblaze.png',
+    logoURL: '../images/backblaze.png',
     companyColor: '#dd031e',
     minPayment: 7,
     storageRate: 0.005,
@@ -11,7 +11,7 @@ export const graphData = [
   },
   {
     name: 'bunny',
-    logoURL: '../src/images/bunny.png',
+    logoURL: '../images/bunny.png',
     companyColor: '#f88137',
     maxPayment: 10,
     storageRate: [
@@ -32,7 +32,7 @@ export const graphData = [
   },
   {
     name: 'scaleway',
-    logoURL: '../src/images/scaleway.png',
+    logoURL: '../images/scaleway.png',
     companyColor: '#4b0a83',
     storageRate: [
       {
@@ -53,7 +53,7 @@ export const graphData = [
   },
   {
     name: 'vultr',
-    logoURL: '../src/images/vultr.png',
+    logoURL: '../images/vultr.png',
     companyColor: '#047cff',
     minPayment: 5,
     storageRate: 0.01,
