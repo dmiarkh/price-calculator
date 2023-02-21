@@ -2,63 +2,6 @@ import { graphData } from './graphData'
 import { useState, useEffect } from 'react'
 import Graph from './components/Graph'
 
-function findLowestPrice(data) {
-  let currentLowestPrice = Number.MAX_SAFE_INTEGER
-
-  for (const companyObj of data) {
-    if (companyObj.totalPrice < currentLowestPrice) {
-      currentLowestPrice = companyObj.totalPrice
-    }
-  }
-  return currentLowestPrice
-}
-
-function calculatePrice(data, inputValues) {
-  return data.map(companyInfo => {
-    let storageAmount = inputValues.storage
-    let transferAmount = inputValues.transfer
-
-    if (companyInfo.freePlan) {
-      storageAmount =
-        storageAmount <= companyInfo.freePlan
-          ? 0
-          : storageAmount - companyInfo.freePlan
-      transferAmount =
-        transferAmount <= companyInfo.freePlan
-          ? 0
-          : transferAmount - companyInfo.freePlan
-    }
-
-    let storageRate
-    if (companyInfo.storageRate.length) {
-      for (const rate of companyInfo.storageRate) {
-        if (rate.isSelected) {
-          storageRate = rate.price
-        }
-      }
-    } else {
-      storageRate = companyInfo.storageRate
-    }
-
-    const storagePrice = storageAmount * storageRate
-    const transferPrice = transferAmount * companyInfo.transferRate
-    let totalPrice = storagePrice + transferPrice
-
-    if (companyInfo.minPayment && totalPrice <= companyInfo.minPayment) {
-      totalPrice = companyInfo.minPayment
-    }
-
-    if (companyInfo.maxPayment && totalPrice >= companyInfo.maxPayment) {
-      totalPrice = companyInfo.maxPayment
-    }
-
-    return {
-      ...companyInfo,
-      totalPrice: totalPrice,
-    }
-  })
-}
-
 function App() {
   const [priceData, setPriceData] = useState(graphData)
   const [inputData, setInputData] = useState({ storage: 0, transfer: 0 })
@@ -178,6 +121,63 @@ function App() {
       </div>
     </main>
   )
+}
+
+function findLowestPrice(data) {
+  let currentLowestPrice = Number.MAX_SAFE_INTEGER
+
+  for (const companyObj of data) {
+    if (companyObj.totalPrice < currentLowestPrice) {
+      currentLowestPrice = companyObj.totalPrice
+    }
+  }
+  return currentLowestPrice
+}
+
+function calculatePrice(data, inputValues) {
+  return data.map(companyInfo => {
+    let storageAmount = inputValues.storage
+    let transferAmount = inputValues.transfer
+
+    if (companyInfo.freePlan) {
+      storageAmount =
+        storageAmount <= companyInfo.freePlan
+          ? 0
+          : storageAmount - companyInfo.freePlan
+      transferAmount =
+        transferAmount <= companyInfo.freePlan
+          ? 0
+          : transferAmount - companyInfo.freePlan
+    }
+
+    let storageRate
+    if (companyInfo.storageRate.length) {
+      for (const rate of companyInfo.storageRate) {
+        if (rate.isSelected) {
+          storageRate = rate.price
+        }
+      }
+    } else {
+      storageRate = companyInfo.storageRate
+    }
+
+    const storagePrice = storageAmount * storageRate
+    const transferPrice = transferAmount * companyInfo.transferRate
+    let totalPrice = storagePrice + transferPrice
+
+    if (companyInfo.minPayment && totalPrice <= companyInfo.minPayment) {
+      totalPrice = companyInfo.minPayment
+    }
+
+    if (companyInfo.maxPayment && totalPrice >= companyInfo.maxPayment) {
+      totalPrice = companyInfo.maxPayment
+    }
+
+    return {
+      ...companyInfo,
+      totalPrice: totalPrice,
+    }
+  })
 }
 
 export default App
